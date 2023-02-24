@@ -3,6 +3,7 @@
 
 
 
+
 #t = tarde
 def saudacao (nome, periodo = "t"):
     if (periodo == "m"):
@@ -11,3 +12,6 @@ def saudacao (nome, periodo = "t"):
         print(f"Boa tarde, {nome}!")
     elif (periodo == "n"):
         print(f"Boa noite, {nome}!")
+
+
+

@@ -11,3 +11,9 @@ def saudacao_pessoas(periodo, *nome):
             print(f"Boa noite, {n}!")
 
 saudacao_pessoas("t", "Maria", "Pedro", "Ana")
+
+
+
+
+
+

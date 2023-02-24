@@ -12,3 +12,7 @@ def saudacao (periodo, *nomes):
 saudacao("m", "Gabriel", "Maria", "Pedro", "João")
 
 
+
+
+
+

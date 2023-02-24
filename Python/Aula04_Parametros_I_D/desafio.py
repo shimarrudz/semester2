@@ -12,3 +12,4 @@ extenso_data(receberData, "janeiro", "fevereiro", "março", "abril", "maio", "ju
 
 
 print(extenso_data(receberData))
+

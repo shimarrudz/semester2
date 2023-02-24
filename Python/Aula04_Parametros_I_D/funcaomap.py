@@ -12,3 +12,5 @@ print(lista_dobro)
 
 
 
+
+
