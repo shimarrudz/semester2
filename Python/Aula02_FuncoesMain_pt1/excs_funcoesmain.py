@@ -1,3 +1,26 @@
+
+def carrega_lista(lista):
+    for i in range (0,10):
+        num = int(input("Digite um número: "))
+        lista.append(num)
+
+    return (lista)
+
+
+def encontra_maior(lista):
+    maior = lista[0]
+    for i in range (1,10):
+        if (lista[i] > maior):
+            maior = lista[i]
+
+    return (maior)
+
+
+def exibe_resultado(resultado):
+    print(resultado)
+
+
+
 def main():
     resp = "S"
     lista = []
@@ -23,27 +46,6 @@ def main():
 
     carrega_lista(lista)
     exibe_resultado(lista)
-
-
-def carrega_lista(lista):
-    for i in range (0,10):
-        num = int(input("Digite um número: "))
-        lista.append(num)
-
-    return (lista)
-
-
-def encontra_maior(lista):
-    maior = lista[0]
-    for i in range (1,10):
-        if (lista[i] > maior):
-            maior = lista[i]
-
-    return (maior)
-
-
-def exibe_resultado(resultado):
-    print(resultado)
 
 
 if (__name__ == "__main__"):

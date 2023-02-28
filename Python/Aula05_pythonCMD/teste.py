@@ -1,4 +1,4 @@
-#Biblioteca que puxa os argumentos(parametros) para o código
+#Biblioteca que puxa os argumentos(parametros) do cmd para o código.
 import sys
 
 def main():
@@ -15,3 +15,6 @@ def soma_numeros(x, y):
 
 if(__name__ == "__main__"):
     main()
+
+
+

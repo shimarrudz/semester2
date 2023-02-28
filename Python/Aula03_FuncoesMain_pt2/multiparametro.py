@@ -1,6 +1,5 @@
 ##Número desconhecido de parâmetros
 
-
 def saudacao_pessoas(periodo, *nome):
     for n in nome:
         if (periodo == "m"):
