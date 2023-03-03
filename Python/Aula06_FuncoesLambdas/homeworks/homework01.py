@@ -6,39 +6,42 @@
 
 import sys
 
-def menor_numero(n1, n2):
-    if n1 < n2:
-        return n1
+def retorna_menor (x, y):
+    if (x < y):
+        return (x)
     else:
-        return n2
+        return (y)
 
-def multiplicacao(n1, n2):
-    return n1 * n2
+def calcula_mult (x, y):
+    mult = x * y
+    return(mult)
 
-def exibir_intervalo(n1, n2):
-    if n1 < n2:
-        for i in range(n1, n2+1):
-            print(i)
+
+def exibe_numeros (x, y):
+    #y: início e x: fim
+    if (x > y):
+        cont = y
+        while (cont <= x):
+            print(cont)
+            cont = cont + 1
     else:
-        print("O primeiro número deve ser maior que o segundo")
+        print("Não é possível exibir os números.")
 
 def main():
-    if len(sys.argv) != 4:
-        print("Uso: python programa.py <opcao> <numero1> <numero2>")
-        return
+    if(len(sys.argv)==4):
+        opc = int(sys.argv[1])
+        x = int(sys.argv[2])
+        y = int(sys.argv[3])
+        if (opc == 1):
+            print("Menor número: ", retorna_menor(x, y))
+        elif (opc == 2):
+            print("Multiplicação: ", calcula_mult(x, y))
+        elif(opc == 3):
+            exibe_numeros(x,y)
+        else:
+            print("Opção inválida")
 
-    opcao = int(sys.argv[1])
-    n1 = int(sys.argv[2])
-    n2 = int(sys.argv[3])
 
-    if opcao == 1:
-        print(menor_numero(n1, n2))
-    elif opcao == 2:
-        print(multiplicacao(n1, n2))
-    elif opcao == 3:
-        exibir_intervalo(n1, n2)
-    else:
-        print("Opção inválida")
 
 if __name__ == '__main__':
     main()

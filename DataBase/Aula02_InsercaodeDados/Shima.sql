@@ -170,7 +170,160 @@ gravando dados fisicamente
 commit;
 
 
+#######################################################################
+Aula 03 - 01/03/2023
 
+/*Ainda trabalhando com estrutura das tabelas*/
+
+DDL
+Create - Ok
+
+Alterando ou corriginfo uma estrutura 
+alter table nome_tabela
+
+#Opções
+
+add column          - nova coluna
+add constraint      - nova regra 
+modify              - modifica tipo e/ou tamanho de uma coluna
+drop column         - elimina uma coluna
+drop constraint     - elimina uma regra
+
+
+create table tb_teste
+(codigo number(2),
+nome number(10));
+
+
+/*Incluindo uma nova coluna*/
+alter table tb_teste add dt_nasc date
+
+/*Incluindo uma coluna com regra*/
+alter table tb_teste add cep char(8) not null
+
+/*Incluindo a pk na coluna codigo*/
+alter table tb_teste add constraint pk_cod primary key (nome_coluna)
+desc tb_teste
+
+/*Modificando apenas o tipo de dados*/
+alter table tb_teste modify nome varchar(10)
+desc tb_teste
+
+/*Modificando apenas o tamanho da coluna*/
+alter table tb_teste modify nome varchar(50)
+desc tb_teste
+
+/*Modificando tamanho e tipo ao mesmo tempo*/
+alter table tb_teste modify nome number(10)
+
+/*Eliminando uma regra*/
+alter table tb_teste drop constraint pk_cod
+desc tb_teste
+
+/*Dicionário de dados*/
+desc user_constraints
+                                        /*o where é o if da programação*/
+select constraint_name from user_constraints where table_name = 'TB_TESTE'
+
+/*Eliminando uma coluna*/
+alter table tb_teste drop column nome_coluna
+desc tb_teste
+
+/*Renomeando uma coluna*/
+alter table tb_teste rename column codigo to cod_cliente
+
+/*Renomeando uma constraint*/
+alter table tb_teste rename constraint /*Nome atual*/ to /*Novo nome*/
+
+/*Eliminando uma table*/
+drop table nome_tabela
+drop table tb_teste
+
+
+
+/*Exercicio teste*/
+
+create table tb_teste1
+(codigo number(1) primary key)
+
+create table tb_teste2
+(codigo number(1) references tb_teste1)
+
+desc tb_teste2
+
+/*Insertando os dados*/
+insert into tb_teste1 values(1)
+
+insert into tb_teste values(1)
+
+/*Uso do cascade pretende eliminar o relacionamento 
+entre as tabelas e excluir a tabela solicitada*/
+drop table tb_teste1 cascade constraints
+
+
+######################################
+Atualizando dados 
+
+Uptade
+
+operadores aritméticos: + - * / ()
+           relacionais: > >= < <= = !+ ou <>
+           lógicos: and or not
+           
+           
+           
+update nome_tabela set nome_coluna = novo_valor;
+
+
+update nome_tabela set nome_coluna = novo_valor
+where condição;
+
+
+
+
+create table produto_tb 
+(cod_prod number(4) constraint prod_cod_pk primary key, 
+unidade varchar2(3),descricao varchar2(20),val_unit number(10,2))
+
+ 
+
+insert into produto_tb values (25,'KG','Queijo',0.97);
+insert into produto_tb values (31,'BAR','Chocolate',0.87);
+insert into produto_tb values (78,'L','Vinho',2.00);
+insert into produto_tb values (22,'M','Linho',0.11);
+insert into produto_tb values (30,'SAC','Acucar',0.30);
+insert into produto_tb values (53,'M','Linha',1.80);
+insert into produto_tb values (13,'G','Ouro',6.18);
+insert into produto_tb values (45,'M','Madeira',0.25);
+insert into produto_tb values (87,'M','Cano',1.97);
+insert into produto_tb values (77,'M','Papel',1.05);
+commit;
+
+
+/*Ver os dados inseridos*/
+select * from produto_tb
+
+
+/*Atualizando os dados do preço do produto para R$1,00*/
+update produto_tb set val_unit = 1
+
+/*Atualizando os dados do preço do produto para R$1,50
+apenas dos produtos de unidade de medida igual a metro*/
+update produto_tb set val_unit = 1.5
+where unidade = 'M'
+select * from produto_tb
+
+/*Atualizando em 15%* o preço dos produtos de código maior que 30.*/
+
+update produto_tb set val_unit = val_unit * 1.15
+where = > 30
+
+/*Atualizar o nome do produto queijo para queijo de minas*/
+
+
+Para os produtos Açucar, Madeira e Linha zerar o seu preço. */
+
+desc produto_tb
 
 
 

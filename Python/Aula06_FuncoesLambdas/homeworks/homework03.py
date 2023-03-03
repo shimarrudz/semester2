@@ -4,17 +4,17 @@
 # Retorne o oposto de um número
 oposto = lambda x: -x
 
-
+oposto(7)
 
 # Retorne o inverso de um número
 inverso = lambda x: 1 / x
 
-
+inverso(3)
 
 # Calcule a metade de um número
 metade = lambda x: x / 2
 
-
+metade(5)
 
 # Calcule a soma de quadrados de dois número
 soma_quadrados = lambda num1, num2: num1 ** 2 + num2 ** 2

@@ -6,38 +6,43 @@
 # obrigatoriamente, a função “main”.
 
 import sys
-import random
 
-def carregar_lista(tamanho):
-    lista = [random.randint(1, 100) for _ in range(tamanho)]
-    return lista
+def carrega_lista(lista, tam):
+    for i in range (0, tam):
+        lista.append(int(input("Digite o elemento da lista: ")))
 
-def triplo_elementos(lista):
-    nova_lista = [elemento * 3 for elemento in lista]
-    return nova_lista
 
-def elementos_pares(lista):
-    nova_lista = [elemento for elemento in lista if elemento % 2 == 0]
-    return nova_lista
+def calcula_triplo (lista,tam):
+    lista_triplo = []
+    for i in range (0,tam):
+        lista_triplo.append(lista[i] * 3)
+
+    return(lista_triplo)
+
+def exibe_pares(lista,tam):
+    for i in range (0,tam):
+        if(lista[i] % 2 == 0):
+            print(lista[i])
 
 def main():
-    if len(sys.argv) != 3:
+    if len(sys.argv) == 3:
         print("Uso: python programa.py <opcao> <tamanho_lista>")
         return
 
     opcao = int(sys.argv[1])
     tamanho = int(sys.argv[2])
 
-    lista = carregar_lista(tamanho)
-
-    if opcao == 1:
-        print(lista)
-    elif opcao == 2:
-        nova_lista = triplo_elementos(lista)
-        print(nova_lista)
+    if (opcao == 1):
+        lista = []
+        carrega_lista(lista, tamanho)
+    elif (opcao == 2):
+        lista = []
+        carrega_lista(lista, tamanho)
+        print("Lista - trplo: ", calcula_triplo(lista,tamanho))
     elif opcao == 3:
-        nova_lista = elementos_pares(lista)
-        print(nova_lista)
+        lista = []
+        carrega_lista(lista, tamanho)
+        exibe_pares(lista, tamanho)
     else:
         print("Opção inválida")
 
