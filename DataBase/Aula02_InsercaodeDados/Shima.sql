@@ -1,4 +1,4 @@
-###############################AULA_01##############################
+########################AULA_01##############################
 Introdução a liguagem SQL
 DDL - Linguagem de definição de dados - Estrutura
 Criando tabelas
@@ -49,9 +49,11 @@ desc nome_tabela
 exemplo: desc cargo10
 
 
+
 ##deletando uma tabela
 drop table nome_tabela
 exemplo: drop table cargo10
+
 
 
 ##visualizando constraints
@@ -85,6 +87,7 @@ desc cargo10
 
 
 
+
 ###Exemplo 3 boas praticas###
 
 create table cargo10
@@ -92,6 +95,8 @@ create table cargo10
 nm_cargo varchar2(25)constraint cargo_nome_nn not null
                      constraint cargo_nome_uk unique,
 salario number(8,2));
+
+
 
 
 create table funcionario10
@@ -170,6 +175,140 @@ gravando dados fisicamente
 commit;
 
 
+
+
+
+
+
+###Exercício###
+
+/*1-) Criar  todas  as  tabelas,  de  acordo  com o  modelo relacional/lógico,
+definindo  todas  as restrições de chaves e demais
+restrições mencionadas no modelo.*/
+
+
+/*Categoria classifica Filme*/
+create table categoria 
+(cod_categoria number(4) constraint cd_categ_pk primary key,
+descricao varchar(50) constraint desc_filme_nn not null);
+
+create table classifica
+(cd_categ_fk number(4) constraint possui_cdfilme_fk references filme,
+cd_filme_fk number(4) constraint possui_cdcateg_fk references categoria);
+
+create table filme
+(cod_filme number(4) constraint cd_filme_pk primary key,
+titulo varchar(20) constraints nome_filme_nn not null);
+
+/*Ator estrela Filme*/
+
+create table ator
+(cod_ator number(4) constraint cd_ator_pk primary key,
+nome_popular varchar(50) constraints nm_pop_nn not null,
+nome_arte varchar(50),
+datanasc date);
+
+create table estrela
+(fk_filme number(4) constraint estrela_filme_fk references filme,
+fk_ator number(4) constraint estrela_ator_fk references ator);
+
+/*(fk_nota number(5) constraint tem_nf_fk references n_fiscal,
+fk_prod number(5) constraint tem_prod_fk references produto)*/
+
+/*DVD possui FILME*/
+
+create table dvd
+(num_dvd number(4) constraint num_dvd_pk primary key,
+tipo char(1));
+
+create table possui
+(dvd_fk number(4) constraint possui_dvd_fk references dvd,
+filme_fk number(4) constraint possui_filme_fk references filme);
+
+/*Cliente aluga DVD*/
+
+create table cliente
+(cod_cliente number(4) constraint cd_cli_pk primary key,
+pre_nome varchar(50) constraint pre_nome_nn not null,
+sobre_nome varchar(50),
+endereco varchar(70),
+telefone varchar(20));
+
+create table aluga
+(cliente_fk number(4) constraint cd_cliente_fk references cliente,
+dvd_fk number(4) constraint num_dvd_fk references dvd,
+data_ret date,
+data_dev date);
+
+
+/*2-) Insira todas os valores apresentados nastabelas FILME, CLIENTE,
+DVDe CATEGORIA.(Utilize vários insert’s).*/
+
+/*Insert Filme*/
+insert into filme values ('1111', 'Forest Gump');
+insert into filme values ('2222', 'Titanic');
+insert into filme values ('3333', 'Island soul');
+insert into filme values ('4444', 'Jordan Man');
+
+select * from filme
+
+/*Insert Cliente*/
+
+insert into cliente values (6666, 'Victor', 'Shimada', 'Rua Visconde, 566', '11-983272594');
+insert into cliente values (5555, 'Beatriz', 'Arantes', 'Rua Pipo, 564', '11-98456994');
+insert into cliente values (4444, 'Derli', 'Arantes', 'Rua China, 66', '11-9838886594');
+insert into cliente values (3333, 'Eliana', 'Almeida', 'Rua Padre Anchieta, 566', '11-9862594');
+
+select * from cliente
+
+/*Insert DVD*/
+
+insert into dvd values (1111, 'A');
+insert into dvd values (9898, 'B');
+insert into dvd values (7878, 'C');
+insert into dvd values (9887, 'D');
+
+select * from dvd
+
+/*Insert Categoria*/
+
+insert into categoria values (5656, 'É um ótimo filme');
+insert into categoria values (8986, 'É um péssimo filme');
+insert into categoria values (5787, 'É um filme razoável');
+insert into categoria values (5988, 'É um decente filme');
+
+select * from categoria
+
+/*3-) Altere o número da categoria Comédia de 01 para 08 na tabela CATEGORIA.*/
+
+update categoria set cod_categoria = 1234
+where cod_categoria = 5656
+
+select * from categoria
+
+/*4-) Insira a coluna SINOPSE na tabela FILME com 300 caracteres.*/
+
+alter table filme add sinopse varchar(300)
+
+desc filme
+
+/*5-) Cadastre uma nova categoria de filme chamada FICÇÃO.*/
+
+insert into categoria values (5555 , 'Ficção');
+
+select * from categoria
+
+/*6-) Apague o filme chamado “Anjos Malditos” e “A melodia da vida” da tabela 
+FILME. Para isso, utilize um único comando. */
+
+commit;
+
+
+
+
+
+
+
 #######################################################################
 Aula 03 - 01/03/2023
 
@@ -178,7 +317,7 @@ Aula 03 - 01/03/2023
 DDL
 Create - Ok
 
-Alterando ou corriginfo uma estrutura 
+/*Alterando ou corrigindo uma estrutura*/ 
 alter table nome_tabela
 
 #Opções
@@ -199,7 +338,7 @@ nome number(10));
 alter table tb_teste add dt_nasc date
 
 /*Incluindo uma coluna com regra*/
-alter table tb_teste add cep char(8) not null
+alter table tb_teste add column cep char(8) not null
 
 /*Incluindo a pk na coluna codigo*/
 alter table tb_teste add constraint pk_cod primary key (nome_coluna)
@@ -249,6 +388,7 @@ create table tb_teste1
 create table tb_teste2
 (codigo number(1) references tb_teste1)
 
+desc tb_teste1
 desc tb_teste2
 
 /*Insertando os dados*/
@@ -280,6 +420,10 @@ where condição;
 
 
 
+
+
+
+/*Exercício*/
 
 create table produto_tb 
 (cod_prod number(4) constraint prod_cod_pk primary key, 
@@ -313,18 +457,36 @@ update produto_tb set val_unit = 1.5
 where unidade = 'M'
 select * from produto_tb
 
-/*Atualizando em 15%* o preço dos produtos de código maior que 30.*/
 
+
+/*Atualizando em 15%* o preço dos produtos de código maior que 30.*/
 update produto_tb set val_unit = val_unit * 1.15
-where = > 30
+where cod_prod = 30
+
+select * from produto_tb
 
 /*Atualizar o nome do produto queijo para queijo de minas*/
 
+update produto_tb set descricao = 'Queijo Minas'
+where descricao = 'Queijo'
 
-Para os produtos Açucar, Madeira e Linha zerar o seu preço. */
+
+select * from produto_tb
+
+
+/*Para os produtos Açucar, Madeira e Linha zerar o seu preço. */
+
+update produto_tb set val_unit = 0
+where descricao = 'Acucar'
+
+update produto_tb set val_unit = 0
+where descricao = 'Madeira'
+
+update produto_tb set val_unit = 0
+where descricao = 'Linha'
+
+select * from produto_tb
 
 desc produto_tb
 
-
-
-
+commit;

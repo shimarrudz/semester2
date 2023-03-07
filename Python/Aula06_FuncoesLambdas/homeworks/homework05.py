@@ -10,3 +10,4 @@ desconto_blackfriday = list(map(lambda preco, desc: preco * desc, listaOriginal,
 
 print(desconto_blackfriday)
 
+

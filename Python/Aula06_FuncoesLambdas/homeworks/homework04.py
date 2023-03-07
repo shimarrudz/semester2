@@ -6,3 +6,5 @@ desconto_blackfriday = list(map(lambda desc: desc * 0.80, lista))
 
 print(desconto_blackfriday)
 
+
+

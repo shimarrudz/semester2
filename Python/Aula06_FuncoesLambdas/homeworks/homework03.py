@@ -1,6 +1,4 @@
 #Faça funções lambdas que:
-
-
 # Retorne o oposto de um número
 oposto = lambda x: -x
 
