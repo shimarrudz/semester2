@@ -461,7 +461,7 @@ select * from produto_tb
 
 /*Atualizando em 15%* o preço dos produtos de código maior que 30.*/
 update produto_tb set val_unit = val_unit * 1.15
-where cod_prod = 30
+where cod_prod >= 30
 
 select * from produto_tb
 
@@ -476,17 +476,144 @@ select * from produto_tb
 
 /*Para os produtos Açucar, Madeira e Linha zerar o seu preço. */
 
-update produto_tb set val_unit = 0
-where descricao = 'Acucar'
 
 update produto_tb set val_unit = 0
-where descricao = 'Madeira'
-
-update produto_tb set val_unit = 0
-where descricao = 'Linha'
+where descricao = 'Madeira' or descricao = 'Acucar' or descricao = 'Linha'
 
 select * from produto_tb
 
 desc produto_tb
+
+commit;
+
+Aula 4 - 08/03/23 - finalizando DML
+
+Eliminando linha(s)
+
+/*TODAS AS LINHAS*/
+
+delete from nome_tabela
+
+/*ALGUMAS LINHAS*/
+
+delete from nome_tabela where condições
+
+/*APAGANDO TUDO*/
+
+select * from produto_tb
+delete from produto_tb
+
+/*CONTROL Z DESFAS TUDO QUE FOI FEITO ANTES DO COMMIT*/
+
+rollback
+
+delete from produto_tb where cod_prod = 31
+
+Gravando os dados em disco: commit 
+
+Desfazendo DML: rollback
+
+Atenção: uma vez executando o commit, o rollback não funciona
+
+
+
+
+################EXERCICOS#####################
+
+create table empregado
+(nome_empregado varchar (50) constraint nm_emp_nn not null,
+rua varchar(100) constraint rua_emp_nn not null,
+cidade varchar(30),
+estado_civil varchar(15));
+
+alter table empregado add salario number(9, 2)
+
+alter table empregado add data_nsc date;
+
+alter table empregado 
+
+alter table empregado modify cidade varchar(110)
+
+desc empregado
+
+
+create table companhia 
+(companhia varchar(50) constraint cp_pk primary key
+                       constraint cp_nn not null,
+cidade varchar(30));
+
+alter table empregado add constraint ep_nome_pk primary key (nome_empregado)
+
+
+create table trabalha 
+(ep_nm_fk varchar(50) constraint trabalha_empregado references empregado,
+p_nm_fk varchar(50) constraint trabalha_companhia references companhia);
+drop table trabalha
+
+desc trabalha
+
+
+create table gerente
+(nm_ep_fk varchar(50) constraint gerente_empregado not null references empregado,
+nm_gr_fk varchar(50) constraint gerente_gerente not null references empregado);
+
+
+drop table cidade
+################EXERCICIO02######################
+
+create table cidade
+(codigo number (4) constraint cd_cidd_pk primary key constraint cd_cidd_nn not null,
+nome varchar(30));
+
+insert into cidade values (1111, 'São Paulo', 'SP');
+insert into cidade values (2222, 'Rio de Janeiro', 'MG');
+
+
+select * from cidade
+
+desc cidade
+
+create table socio 
+(cpf char(11) constraint num_cpf_pk primary key constraint num_cpf_nn not null,
+nome varchar(20) constraint nome_nn not null,
+datansc date constraint data_nn not null,
+rg varchar(15) constraint rg_socio_nn not null,
+cidade varchar(20));
+
+insert into socio values ('12345689540', 'Victor Shimada Serete', '12/12/12', 
+'456487568459785', 'Rio de Janeiro', '7894562134', 'M', 4564);
+
+insert into socio values ('15648945621', 'Beatriz Fernandes de Almeida', '13/12/08',
+'456154987561315', 'São Paulo', '1789456123', 'F', 5648);
+
+select * from socio
+
+alter table cidade add uf char(2) not null
+
+desc cidade
+
+alter table socio add fone char(10)
+
+alter table socio add sexo char(1) not null 
+
+desc socio
+
+alter table socio modify nome varchar(35)
+
+alter table socio add setor number not null foreign key
+
+alter table socio add setor_fk number foreign key
+
+
+create table setor
+(codigo number(3) constraint cd_pk primary key constraint cd_setor_nn not null,
+nome varchar(30) constraint nome_setor_nn not null);
+
+desc setor
+
+insert into setor values ( 153,'Roupas');
+insert into setor values (111, 'Compras');
+
+select * from setor
 
 commit;
